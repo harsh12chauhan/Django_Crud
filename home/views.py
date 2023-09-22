@@ -7,6 +7,8 @@ from .serializer import serializer
 
 from .models import userDetails
 
+import json
+
 
 # Create your views here.
 class userLists(APIView):
@@ -14,3 +16,12 @@ class userLists(APIView):
         queryset = userDetails.objects.all()
         serializersData = serializer(queryset,many=True) 
         return Response(serializersData.data)
+    
+    def post(self,request):
+        data = request.data
+        serializerData = serializer(data=data)
+        if(serializerData.is_valid()):
+            serializerData.save()
+            return Response(data)
+        return Response(status=400)
+
