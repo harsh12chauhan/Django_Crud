@@ -24,4 +24,5 @@ from home.views import userLists
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/',userLists.as_view()),
+    path('home/<int:id>/',userLists.as_view()),
 ]
