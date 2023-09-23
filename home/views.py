@@ -6,7 +6,7 @@ from rest_framework.views import Response
 from .serializer import serializer
 
 from .models import userDetails
-
+ 
 # Create your views here.
 class userLists(APIView):
 
@@ -37,5 +37,18 @@ class userLists(APIView):
             return Response({'error':'data not found'},status=400)
         data.delete()
         return Response({'res':'user is deleted '})
+    
+
+    def patch(self,request,id=None):
+        if id is not None:
+            data = userDetails.objects.get(id=id)       
+            try:
+                serializerData = serializer(data,data=request.data,partial=True)
+                if(serializerData.is_valid()):
+                    serializerData.save()            
+                    return Response({'res':'data updated successfully'},status=200)
+            except userDetails.DoesNotExist:  
+                return Response({'error':'data not found'},status=400)
+        return Response({'res':'id not found'},status=400)
         
 
