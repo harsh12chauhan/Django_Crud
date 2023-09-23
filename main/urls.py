@@ -19,10 +19,16 @@ from django.urls import path
 
 #importing userLists
 from home.views import userLists
+from about.views import moreDetails
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # home app
     path('home/',userLists.as_view()),
     path('home/<int:id>/',userLists.as_view()),
+    # about app
+    path('about/',moreDetails.as_view()),
+    path('about/<int:id>/',moreDetails.as_view()),
+    
 ]
