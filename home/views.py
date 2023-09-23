@@ -41,9 +41,9 @@ class userLists(APIView):
 
     def patch(self,request,id=None):
         if id is not None:
-            data = userDetails.objects.get(id=id)       
             try:
-                serializerData = serializer(data,data=request.data,partial=True)
+                data = userDetails.objects.get(id=id)       
+                serializerData = serializer(data,data=request.data)
                 if(serializerData.is_valid()):
                     serializerData.save()            
                     return Response({'res':'data updated successfully'},status=200)
